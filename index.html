@@ -171,7 +171,14 @@
       </div>
 
       <div class="tabs" id="galeria-tabs" role="tablist" aria-label="Anos do projeto"></div>
-      <div class="gallery" id="galeria-grid"></div>
+      <div class="gallery" id="galeria-viewer">
+        <button class="gallery__main" id="galeria-main" aria-label="Abrir foto em tela cheia">
+          <img id="galeria-main-img" alt="" />
+          <span class="gallery__main-count" id="galeria-main-count"></span>
+          <span class="gallery__main-hint" aria-hidden="true">Toque para ampliar</span>
+        </button>
+        <div class="gallery__thumbs" id="galeria-thumbs" role="list"></div>
+      </div>
       <p class="gallery__empty" id="galeria-vazia" hidden>
         Em breve, fotos desta edição. ✦
       </p>
@@ -186,22 +193,14 @@
         <h2 class="section__title">Onde acontece</h2>
       </div>
       <div class="local">
+        <span class="local__pin" aria-hidden="true">📍</span>
         <div class="local__info">
           <h3 id="local-nome"></h3>
           <p id="local-endereco"></p>
           <p class="local__hint">As cestas são recebidas e entregues a partir deste endereço.</p>
-          <a id="local-link" class="btn btn--ghost btn--small" href="#" target="_blank" rel="noopener">
+          <a id="local-link" class="btn btn--primary" href="#" target="_blank" rel="noopener">
             Abrir no Google Maps
           </a>
-        </div>
-        <div class="local__map">
-          <a id="local-fallback" class="local__fallback" href="#" target="_blank" rel="noopener">
-            <span class="local__pin" aria-hidden="true">📍</span>
-            <strong>Ver no mapa</strong>
-            <span id="local-fallback-endereco"></span>
-          </a>
-          <iframe id="local-mapa" title="Mapa do local do evento" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
       </div>
     </div>

@@ -46,9 +46,6 @@
   document.getElementById("local-endereco").textContent = L.endereco;
   const q = encodeURIComponent(L.endereco);
   document.getElementById("local-link").href = "https://www.google.com/maps/search/?api=1&query=" + q;
-  document.getElementById("local-mapa").src = "https://www.google.com/maps?q=" + q + "&output=embed";
-  document.getElementById("local-fallback").href = "https://www.google.com/maps/search/?api=1&query=" + q;
-  document.getElementById("local-fallback-endereco").textContent = L.endereco;
 
   document.getElementById("ano-atual").textContent = new Date().getFullYear();
 
@@ -124,9 +121,14 @@
   // Galeria por ano
   // ------------------------------------------------------------
   const tabsEl = document.getElementById("galeria-tabs");
-  const gridEl = document.getElementById("galeria-grid");
+  const galEl = document.getElementById("galeria-viewer");
+  const mainBtn = document.getElementById("galeria-main");
+  const mainImg = document.getElementById("galeria-main-img");
+  const mainCount = document.getElementById("galeria-main-count");
+  const thumbsEl = document.getElementById("galeria-thumbs");
   const vaziaEl = document.getElementById("galeria-vazia");
   let fotosAtuais = [];
+  let atual = 0;
 
   function renderTabs(anos) {
     const lista = Object.keys(anos).sort((a, b) => b.localeCompare(a)); // mais novo primeiro
@@ -158,25 +160,48 @@
 
   function renderGrid(ano, arquivos) {
     fotosAtuais = arquivos.map((nome) => ({ src: "galeria/" + ano + "/" + nome, alt: "Corrente Solidária " + ano }));
-    gridEl.innerHTML = "";
-    vaziaEl.hidden = fotosAtuais.length > 0;
-    gridEl.classList.remove("gallery--in");
+    thumbsEl.innerHTML = "";
+    const temFotos = fotosAtuais.length > 0;
+    vaziaEl.hidden = temFotos;
+    galEl.hidden = !temFotos;
+    if (!temFotos) return;
     fotosAtuais.forEach((f, i) => {
-      const btn = document.createElement("button");
-      btn.className = "gallery__item";
-      btn.setAttribute("aria-label", "Abrir foto " + (i + 1) + " de " + ano);
-      btn.style.setProperty("--i", i);
+      const b = document.createElement("button");
+      b.className = "gallery__thumb";
+      b.setAttribute("role", "listitem");
+      b.setAttribute("aria-label", "Foto " + (i + 1) + " de " + ano);
       const img = document.createElement("img");
-      img.src = f.src;
-      img.alt = f.alt;
-      img.loading = "lazy";
-      img.decoding = "async";
-      btn.appendChild(img);
-      btn.addEventListener("click", () => abrirLightbox(i));
-      gridEl.appendChild(btn);
+      img.src = f.src; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+      b.appendChild(img);
+      b.addEventListener("click", () => selecionar(i));
+      thumbsEl.appendChild(b);
     });
-    requestAnimationFrame(() => gridEl.classList.add("gallery--in"));
+    selecionar(0, true);
   }
+
+  function selecionar(i, semScroll) {
+    atual = i;
+    mainImg.classList.remove("is-loaded");
+    mainImg.src = fotosAtuais[i].src;
+    mainImg.alt = fotosAtuais[i].alt;
+    mainImg.onload = () => mainImg.classList.add("is-loaded");
+    mainCount.textContent = (i + 1) + " / " + fotosAtuais.length;
+    thumbsEl.querySelectorAll(".gallery__thumb").forEach((t, k) => t.classList.toggle("is-active", k === i));
+    if (!semScroll) {
+      const t = thumbsEl.children[i];
+      if (t) t.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+  }
+  mainBtn.addEventListener("click", () => { if (fotosAtuais.length) abrirLightbox(atual); });
+  // swipe na imagem grande troca a foto
+  let mx0 = null;
+  mainBtn.addEventListener("touchstart", (e) => { mx0 = e.touches[0].clientX; }, { passive: true });
+  mainBtn.addEventListener("touchend", (e) => {
+    if (mx0 === null) return;
+    const dx = e.changedTouches[0].clientX - mx0;
+    if (Math.abs(dx) > 40) selecionar((atual + (dx < 0 ? 1 : -1) + fotosAtuais.length) % fotosAtuais.length);
+    mx0 = null;
+  });
 
   // ------------------------------------------------------------
   // Lightbox
@@ -199,6 +224,7 @@
     lb.querySelector(".lightbox__close").focus();
   }
   function fecharLightbox() {
+    if (fotosAtuais.length) selecionar(idx);
     lb.hidden = true;
     lbImg.src = "";
     document.body.classList.remove("no-scroll");
