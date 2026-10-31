@@ -1,0 +1,34 @@
+name: Atualizar manifest da galeria
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "galeria/**"
+      - "images/sobre/**"
+      - "scripts/gerar_manifest.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gerar manifest.json
+        run: python3 scripts/gerar_manifest.py
+
+      - name: Commitar se houver mudança
+        run: |
+          if git diff --quiet manifest.json; then
+            echo "manifest.json já está atualizado."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manifest.json
+          git commit -m "chore: atualiza manifest da galeria [skip ci]"
+          git push

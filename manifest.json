@@ -1,0 +1,24 @@
+{
+  "galeria": {
+    "2025": [
+      "foto-01.jpg",
+      "foto-02.jpg",
+      "foto-03.jpg",
+      "foto-04.jpg",
+      "foto-05.jpg",
+      "foto-06.jpg"
+    ],
+    "2024": [
+      "foto-01.jpg",
+      "foto-02.jpg",
+      "foto-03.jpg",
+      "foto-04.jpg"
+    ]
+  },
+  "sobre": [
+    "foto-1.jpg",
+    "foto-2.jpg",
+    "foto-3.jpg",
+    "foto-4.jpg"
+  ]
+}
