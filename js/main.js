@@ -47,6 +47,8 @@
   const q = encodeURIComponent(L.endereco);
   document.getElementById("local-link").href = "https://www.google.com/maps/search/?api=1&query=" + q;
   document.getElementById("local-mapa").src = "https://www.google.com/maps?q=" + q + "&output=embed";
+  document.getElementById("local-fallback").href = "https://www.google.com/maps/search/?api=1&query=" + q;
+  document.getElementById("local-fallback-endereco").textContent = L.endereco;
 
   document.getElementById("ano-atual").textContent = new Date().getFullYear();
 
