@@ -88,7 +88,7 @@ code { background: var(--creme-2); padding: 0.1em 0.4em; border-radius: 6px; fon
 .hero__bg {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(180deg, rgba(15,46,34,0.55) 0%, rgba(15,46,34,0.35) 45%, rgba(15,46,34,0.85) 100%),
+    linear-gradient(180deg, rgba(15,46,34,0.82) 0%, rgba(27,77,55,0.72) 45%, rgba(15,46,34,0.95) 100%),
     url("../images/capa.jpg") center / cover no-repeat,
     radial-gradient(1200px 600px at 20% 10%, #2f6f4e 0%, transparent 60%),
     radial-gradient(900px 500px at 85% 90%, #8f1f1f 0%, transparent 60%),
