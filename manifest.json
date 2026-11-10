@@ -1,24 +1,43 @@
 {
   "galeria": {
-    "2025": [
+    "2021": [
       "foto-01.jpg",
       "foto-02.jpg",
       "foto-03.jpg",
       "foto-04.jpg",
       "foto-05.jpg",
-      "foto-06.jpg"
+      "foto-06.jpg",
+      "foto-07.jpg",
+      "foto-08.jpg",
+      "foto-09.jpg",
+      "foto-10.jpg",
+      "foto-11.jpg"
     ],
-    "2024": [
+    "2020": [
       "foto-01.jpg",
       "foto-02.jpg",
       "foto-03.jpg",
       "foto-04.jpg"
+    ],
+    "2018": [
+      "foto-01.jpg",
+      "foto-02.jpg",
+      "foto-03.jpg",
+      "foto-04.jpg",
+      "foto-05.jpg",
+      "foto-06.jpg",
+      "foto-07.jpg",
+      "foto-08.jpg",
+      "foto-09.jpg",
+      "foto-10.jpg",
+      "foto-11.jpg",
+      "foto-12.jpg"
     ]
   },
   "sobre": [
-    "foto-1.jpg",
-    "foto-2.jpg",
-    "foto-3.jpg",
-    "foto-4.jpg"
+    "01-arvore-de-cestas.jpg",
+    "02-coral.jpg",
+    "03-voluntarios.jpg",
+    "04-familia.jpg"
   ]
 }
